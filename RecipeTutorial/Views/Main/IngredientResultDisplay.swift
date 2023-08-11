@@ -12,9 +12,9 @@ struct IngredientResultDisplay: View{
     @State var addIngredient: Bool = false
     @State static var infoAvailable: Bool = false
     @State var cameraViewPresenting: Bool = false
-    @State var testCamera: TestImage = TestImage()
+    //@State var testCamera: TestImage = TestImage()
     
-    let tap = UITapGestureRecognizer(target: TestImage.self, action: #selector(TestImage.handleTap(_:)))
+    //let tap = UITapGestureRecognizer(target: TestImage.self, action: #selector(TestImage.handleTap(_:)))
     
     
     
@@ -134,6 +134,9 @@ struct IngredientResultDisplay: View{
             
         }
     }
+    
+    //Possibly want to add alert function here
+    
 }
 /*
 extension UIView{

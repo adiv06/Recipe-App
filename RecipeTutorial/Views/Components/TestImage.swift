@@ -10,6 +10,7 @@ import AVFoundation
 import UIKit
 import SwiftUI
 
+/*
 class TestImage: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
         
     
@@ -40,20 +41,54 @@ class TestImage: UIViewController, UIImagePickerControllerDelegate, UINavigation
         picker.dismiss(animated: true)
     }
 }
+ */
 
-//MARK: Other Image Method
+//MARK: Other Image Taking Method
 
 struct newImageView: UIViewControllerRepresentable{
     func makeUIViewController(context: Context) -> UIViewController {
-        let picker = UIImagePickerController()
-        picker.sourceType = .camera
-        picker.allowsEditing = true
-        picker.delegate = context.coordinator //can recive events
-        return picker
+        var createPicker = false
+        switch AVCaptureDevice.authorizationStatus(for: .video)
+        {
+        case .authorized, .notDetermined:
+            createPicker = true
+        default:
+            AVCaptureDevice.requestAccess(for: .video) { granted in
+                        if granted {
+                            createPicker = true
+                        }else{
+                            alertPromptToAllowCameraAccessViaSetting()
+                        }
+                    }
+        }
+        
+        if(createPicker)
+        {
+            let picker = UIImagePickerController()
+            picker.sourceType = .camera
+            picker.allowsEditing = true
+            picker.delegate = context.coordinator //can recieve events
+            return picker
+        }
+        else{
+            return makeUIViewController(context: context)
+        }
+
+            
+    }
+    
+    func alertPromptToAllowCameraAccessViaSetting(){
+        let alert = UIAlertController(title: "Error", message: "Camera access required for scanning", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default))
+        alert.addAction(UIAlertAction(title: "Settings", style: .cancel) { (alert) -> Void in
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+        })
+            alert.present(alert, animated: true)
     }
     
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
         //
+        
     }
     
     func makeCoordinator() -> (Coordinator) {
@@ -68,6 +103,7 @@ class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationContro
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         //Run code when user cancels UI
+        picker.dismiss(animated: true)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -76,7 +112,8 @@ class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationContro
         guard let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
             fatalError("Could not assign image taken to selected image")
         }
+        RecipesViewModel.imageSearchPictures.append(selectedImage)
         UIImageWriteToSavedPhotosAlbum(selectedImage, nil, nil, nil)
-         
+        picker.dismiss(animated: true)
     }
 }

@@ -17,7 +17,7 @@ class RecipesViewModel: ObservableObject{
     @Published private(set) var ingredientSearchRecipeID: [Int] = []
     //Testing API Call Array
     @Published private(set) var extraIngredientResultInfoTest: [RecipeInfo] = []
-    @Published var imageSearchPictures: [UIImage] = []
+    static var imageSearchPictures: [UIImage] = []
     
     let headers = [
         "x-api-key": "864aad78d8bc4a86be99da353c5bc43c",
