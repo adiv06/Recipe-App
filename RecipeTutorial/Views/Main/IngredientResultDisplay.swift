@@ -12,6 +12,7 @@ struct IngredientResultDisplay: View{
     @State var addIngredient: Bool = false
     @State static var infoAvailable: Bool = false
     @State var cameraViewPresenting: Bool = false
+    @State static var settings: Bool = false
     //@State var testCamera: TestImage = TestImage()
     
     //let tap = UITapGestureRecognizer(target: TestImage.self, action: #selector(TestImage.handleTap(_:)))
@@ -88,10 +89,17 @@ struct IngredientResultDisplay: View{
                             //.addGestureRecognizer(tap)
                             //IngredientResultDisplay.addGestureRecognizer(tap)
                         
-                                            }
-                    .sheet(isPresented: $cameraViewPresenting) {
-                        newImageView()
+                    }.alert("Error", isPresented: IngredientResultDisplay.$settings) {
+                        Button("Cancel", role: .none) { }
+                        Button("Setting", role: .destructive){
+                            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                        }
+                    } message: {
+                        Text("Camera access required for scanning")
                     }
+
+                    
+                }
                     
                     Button {
                         // Make API Call and search
@@ -128,6 +136,8 @@ struct IngredientResultDisplay: View{
                     
                 }
                 .padding(.horizontal)
+                .sheet(isPresented: $cameraViewPresenting) {
+                    newImageView()
 
             }
             .navigationTitle("Ingredient Search")

@@ -53,13 +53,15 @@ struct newImageView: UIViewControllerRepresentable{
         case .authorized, .notDetermined:
             createPicker = true
         default:
-            AVCaptureDevice.requestAccess(for: .video) { granted in
+            AVCaptureDevice.requestAccess(for: .video, completionHandler: {(granted: Bool) in
                         if granted {
                             createPicker = true
                         }else{
-                            alertPromptToAllowCameraAccessViaSetting()
+                            IngredientResultDisplay.settings = true
                         }
-                    }
+                    })
+             
+            //IngredientResultDisplay.settings = true
         }
         
         if(createPicker)
@@ -76,16 +78,16 @@ struct newImageView: UIViewControllerRepresentable{
 
             
     }
-    
+    /*
     func alertPromptToAllowCameraAccessViaSetting(){
         let alert = UIAlertController(title: "Error", message: "Camera access required for scanning", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .default))
         alert.addAction(UIAlertAction(title: "Settings", style: .cancel) { (alert) -> Void in
             UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
         })
-            alert.present(alert, animated: true)
+            self.present(alert, animated: true)
     }
-    
+    */
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
         //
         
