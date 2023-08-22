@@ -25,27 +25,27 @@ struct IngredientResultDisplay: View{
         NavigationView{
             ScrollView{
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 10){
-                        ForEach(recipesVM.ingredientsSearched, id: \.self){ ingredient in
-                            HStack{
-                                Text("\(ingredient)")
-                                    .bold()
+                    ForEach(recipesVM.ingredientsSearched, id: \.self){ ingredient in
+                        HStack{
+                            Text("\(ingredient)")
+                                .bold()
+                                .foregroundColor(.white)
+                                .padding(10)
+                                .frame(maxHeight: 40)
+                            
+                            Button() {
+                                recipesVM.removeIngredient(ingredient: ingredient)
+                            } label: {
+                                Image(systemName: "xmark")
                                     .foregroundColor(.white)
-                                    .padding(10)
-                                    .frame(maxHeight: 40)
-                                
-                                Button() {
-                                    recipesVM.removeIngredient(ingredient: ingredient)
-                                } label: {
-                                    Image(systemName: "xmark")
-                                        .foregroundColor(.white)
-                                }
-                                
-                                Spacer()
-                                
-                            }.background(
-                                .green)
-                            .cornerRadius(10)
-                        }
+                            }
+                            
+                            Spacer()
+                            
+                        }.background(
+                            .green)
+                        .cornerRadius(10)
+                    }
                     Button {
                         addIngredient.toggle()
                     } label: {
@@ -53,16 +53,16 @@ struct IngredientResultDisplay: View{
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .foregroundColor(.black)
-                        .frame(maxWidth: 40)
+                            .frame(maxWidth: 40)
                     }.sheet(isPresented: $addIngredient) {
                         IngredientInput()
                     }
-
                     
-                        
-                    }.padding()
+                    
+                    
+                }.padding()
                     .frame(maxWidth: UIScreen.main.bounds.width, maxHeight: .infinity)
-                                 
+                VStack{
                 LazyVStack{
                     
                     HStack {
@@ -72,11 +72,11 @@ struct IngredientResultDisplay: View{
                             .padding()
                             .padding(.horizontal)
                             .foregroundColor(.white)
-                            //.bold()
+                        //.bold()
                             .background(LinearGradient(gradient: Gradient(colors: [Color(.blue).opacity(0.8), Color((.purple))]), startPoint: .topLeading, endPoint: .bottom))
                             .border(.black, width: 3)
                             .cornerRadius(10)
-
+                        
                         Spacer()
                         Button(){
                             
@@ -93,58 +93,60 @@ struct IngredientResultDisplay: View{
                                 .resizable()
                                 .foregroundColor(.black)
                                 .aspectRatio(contentMode: .fill)
-                            .frame(maxWidth: 65)
+                                .frame(maxWidth: 65)
                         }
-                            //.addGestureRecognizer(tap)
-                            //IngredientResultDisplay.addGestureRecognizer(tap)
+                        //.addGestureRecognizer(tap)
+                        //IngredientResultDisplay.addGestureRecognizer(tap)
                         
                     }.alert("Error", isPresented: $settings) {
-                        Button("Setting", role: .destructive){
+                        Button("Settings", role: .destructive){
                             UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
                             newImageView().dismiss
                         }
                     } message: {
                         Text("Camera access required for scanning")
                     }
-
+                    
                     
                 }
+                
+                
+                Button {
+                    // Make API Call and search
+                    recipesVM.searchByIngredients()
+                } label: {
+                    Text("Search")
+                        .foregroundColor(.primary)
+                        .bold()
+                        .frame(maxWidth: UIScreen.main.bounds.width)
+                        .padding()
+                        .background(.gray.opacity(0.4))
+                        .padding(.vertical, 5)
                     
-                    Button {
-                        // Make API Call and search
-                        recipesVM.searchByIngredients()
-                    } label: {
-                        Text("Search")
-                            .foregroundColor(.primary)
-                            .bold()
-                            .frame(maxWidth: UIScreen.main.bounds.width)
-                            .padding()
-                            .background(.gray.opacity(0.4))
-                            .padding(.vertical, 5)
-                            
-                    }.border(.black, width: 4)
-                        .cornerRadius(10)
-                    //Data for when there is none from API to fill screen
-                    
-                    //Check if there is data before you display
-                    if(recipesVM.extraIngredientResultInfo.count == recipesVM.ingredientSearchRecipeID.count || recipesVM.ingredientSearchRecipeID.count == 0)
-                    {
-                        ForEach(recipesVM.ingredientResults){ingredient in
-                            NavigationLink(destination: IngredientRecipeView(recipe: recipesVM.extraIngredientResultInfo.first(where: { recipeInfo in
-                                recipeInfo.id == ingredient.id
-                            }) ?? recipesVM.extraIngredientResultInfo[0]/*Will change from force unwrapping to some alert later if no ID is found*/))
-                            {
-                                IngredientResultCard(ingredientInfo: ingredient)
-                            }
+                }.border(.black, width: 4)
+                    .cornerRadius(10)
+                //Data for when there is none from API to fill screen
+                
+                //Check if there is data before you display
+                if(recipesVM.extraIngredientResultInfo.count == recipesVM.ingredientSearchRecipeID.count || recipesVM.ingredientSearchRecipeID.count == 0)
+                {
+                    ForEach(recipesVM.ingredientResults){ingredient in
+                        NavigationLink(destination: IngredientRecipeView(recipe: recipesVM.extraIngredientResultInfo.first(where: { recipeInfo in
+                            recipeInfo.id == ingredient.id
+                        }) ?? recipesVM.extraIngredientResultInfo[0]/*Will change from force unwrapping to some alert later if no ID is found*/))
+                        {
+                            IngredientResultCard(ingredientInfo: ingredient)
                         }
-                    }else{
-                        ProgressView()
-                            .padding(.vertical, 40)
                     }
+                }else{
+                    ProgressView()
+                        .padding(.vertical, 40)
+                }
+                }.padding(.horizontal)
+                //Will figure out padding needed later to make everything line up
 
                     
                 }
-                .padding(.horizontal)
                 .sheet(isPresented: $cameraViewPresenting, content: {
                         newImageView()
                 })

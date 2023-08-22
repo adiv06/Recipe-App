@@ -53,6 +53,8 @@ struct APIDataSearchBar: View {
                     NavigationLink(destination: RecipeView(recipe: recipe))
                     {
                         SearchResultCards(recipe: recipe)
+                            .padding(.vertical, 5)
+                        
                     }
                 }
             }

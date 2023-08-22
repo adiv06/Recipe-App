@@ -57,7 +57,7 @@ struct SearchResultCards: View {
         }
         .frame(height: 100)
         .shadow(color: Color.black.opacity(0.15), radius: 15, x: 0, y: 10)
-        .padding(5)
+        //.padding(5)
     }
         
 }
