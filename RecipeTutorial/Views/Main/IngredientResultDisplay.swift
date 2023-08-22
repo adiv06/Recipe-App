@@ -6,14 +6,16 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct IngredientResultDisplay: View{
     @EnvironmentObject var recipesVM: RecipesViewModel
     @State var addIngredient: Bool = false
     @State static var infoAvailable: Bool = false
     @State var cameraViewPresenting: Bool = false
-    @State static var settings: Bool = false
-    //@State var testCamera: TestImage = TestImage()
+    @State var settings: Bool = false
+    
+    //var settingsDisplay: Bool{$cameraViewPresenting && (AVCaptureDevice.authorizationStatus(for: .video) != .authorized && AVCaptureDevice.authorizationStatus(for: .video) != .notDetermined)}
     
     //let tap = UITapGestureRecognizer(target: TestImage.self, action: #selector(TestImage.handleTap(_:)))
     
@@ -77,7 +79,14 @@ struct IngredientResultDisplay: View{
 
                         Spacer()
                         Button(){
-                            cameraViewPresenting = true
+                            
+                            switch AVCaptureDevice.authorizationStatus(for: .video)
+                            {
+                            case .authorized, .notDetermined:
+                                cameraViewPresenting = true
+                            default:
+                                settings = true
+                            }
                             //TestImage.cameraButtonTap(testCamera)
                         }label:{
                             Image(systemName: "camera.viewfinder")
@@ -89,10 +98,10 @@ struct IngredientResultDisplay: View{
                             //.addGestureRecognizer(tap)
                             //IngredientResultDisplay.addGestureRecognizer(tap)
                         
-                    }.alert("Error", isPresented: IngredientResultDisplay.$settings) {
-                        Button("Cancel", role: .none) { }
+                    }.alert("Error", isPresented: $settings) {
                         Button("Setting", role: .destructive){
                             UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                            newImageView().dismiss
                         }
                     } message: {
                         Text("Camera access required for scanning")
@@ -136,10 +145,9 @@ struct IngredientResultDisplay: View{
                     
                 }
                 .padding(.horizontal)
-                .sheet(isPresented: $cameraViewPresenting) {
-                    newImageView()
-
-            }
+                .sheet(isPresented: $cameraViewPresenting, content: {
+                        newImageView()
+                })
             .navigationTitle("Ingredient Search")
             
         }

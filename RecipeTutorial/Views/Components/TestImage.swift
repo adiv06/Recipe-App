@@ -46,9 +46,11 @@ class TestImage: UIViewController, UIImagePickerControllerDelegate, UINavigation
 //MARK: Other Image Taking Method
 
 struct newImageView: UIViewControllerRepresentable{
+    @Environment(\.dismiss) var dismiss
+    
     func makeUIViewController(context: Context) -> UIViewController {
-        var createPicker = false
-        switch AVCaptureDevice.authorizationStatus(for: .video)
+        //var createPicker = false
+        /*switch AVCaptureDevice.authorizationStatus(for: .video)
         {
         case .authorized, .notDetermined:
             createPicker = true
@@ -62,9 +64,9 @@ struct newImageView: UIViewControllerRepresentable{
                     })
              
             //IngredientResultDisplay.settings = true
-        }
+        }*/
         
-        if(createPicker)
+        if(true)
         {
             let picker = UIImagePickerController()
             picker.sourceType = .camera

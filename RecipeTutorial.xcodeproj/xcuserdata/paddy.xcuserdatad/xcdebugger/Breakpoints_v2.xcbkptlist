@@ -318,8 +318,8 @@
             filePath = "RecipeTutorial/Views/Components/TestImage.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
             landmarkName = "makeUIViewController(context:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -334,42 +334,10 @@
             filePath = "RecipeTutorial/Views/Components/TestImage.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "makeUIViewController(context:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "5DBC2F89-5392-43CC-B5F5-E9E1E59D3873 - 684ea1573ce16663"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "RecipeTutorial.newImageView.makeUIViewController(context: SwiftUI.UIViewControllerRepresentableContext&lt;RecipeTutorial.newImageView&gt;) -&gt; __C.UIViewController"
-                  moduleName = "RecipeTutorial"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/paddy/Desktop/Adiv&apos;s%20Apps/RecipeTutorial/RecipeTutorial/Views/Components/TestImage.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "56"
-                  endingLineNumber = "56"
-                  offsetFromSymbolStart = "300">
-               </Location>
-               <Location
-                  uuid = "5DBC2F89-5392-43CC-B5F5-E9E1E59D3873 - 4c402a859a8d437e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Bool) -&gt; () in RecipeTutorial.newImageView.makeUIViewController(context: SwiftUI.UIViewControllerRepresentableContext&lt;RecipeTutorial.newImageView&gt;) -&gt; __C.UIViewController"
-                  moduleName = "RecipeTutorial"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/paddy/Desktop/Adiv&apos;s%20Apps/RecipeTutorial/RecipeTutorial/Views/Components/TestImage.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "50"
-                  endingLineNumber = "50"
-                  offsetFromSymbolStart = "36">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -382,8 +350,8 @@
             filePath = "RecipeTutorial/Views/Components/TestImage.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "makeUIViewController(context:)"
             landmarkType = "7">
          </BreakpointContent>
