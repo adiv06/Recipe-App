@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct APIDataSearchBar: View {
+    //Testing to see if a commit works...
     @EnvironmentObject var recipesVM: RecipesViewModel
     
     @State var searchText = ""
